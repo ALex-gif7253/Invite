@@ -87,7 +87,6 @@ button:hover {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wedding Invitation</title>
-  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div id="puzzle-container">
@@ -141,15 +140,6 @@ document.getElementById('rsvp-form').addEventListener('submit', function (e) {
   document.getElementById('rsvp-form').reset();
 });
 
-</script>
-
-<script>
-function doPost(e) {
-  const sheet = SpreadsheetApp.getActiveSheet();
-  const data = JSON.parse(e.postData.contents);
-  sheet.appendRow([data.name, data.guests]);
-  return ContentService.createTextOutput("Success");
-}
 </script>
 </body>
 </html>
