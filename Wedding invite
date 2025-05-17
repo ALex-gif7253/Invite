@@ -161,7 +161,7 @@
 
       try {
         const response = await fetch(
-          'https://script.google.com/macros/s/AKfycbxpKKsCvBw7LemoWjJ2jKCiextpYrSTVC1KRKaSetCOrGcHWw2it1uHTCB7G0kQDAI6/exec',
+          'https://script.google.com/macros/s/AKfycbxagNXqgPfPHd7yhlAx-wXH8rviBeenPGNsVLrKlid_DtBixzO7GfZGsOqyXzY_PYu7/exec',
           {
             method: 'POST',
             mode: 'cors',
