@@ -186,5 +186,60 @@
       }
     });
   </script>
+<meta charset="UTF-8">
+  <title>Heart Puzzle Animation</title>
+  <style>
+    body {
+      background: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      position: relative;
+      width: 300px;
+      height: 300px;
+      cursor: pointer;
+    }
+
+    .piece {
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      transition: all 1s ease;
+    }
+
+    #part1 { top: -50px; left: -50px; }
+    #part2 { top: -50px; left: 200px; }
+    #part3 { top: 200px; left: -50px; }
+    #part4 { top: 200px; left: 200px; }
+
+    .joined #part1 { top: 0; left: 0; }
+    .joined #part2 { top: 0; left: 150px; }
+    .joined #part3 { top: 150px; left: 0; }
+    .joined #part4 { top: 150px; left: 150px; }
+  </style>
+</head>
+<body>
+
+<div class="container" onclick="joinHeart()">
+  <img src="part1.png" id="part1" class="piece" />
+  <img src="part2.png" id="part2" class="piece" />
+  <img src="part3.png" id="part3" class="piece" />
+  <img src="part4.png" id="part4" class="piece" />
+</div>
+
+<script>
+  function joinHeart() {
+    const container = document.querySelector('.container');
+    container.classList.add('joined');
+
+    setTimeout(() => {
+      window.location.href = 'https://your-invite-link.com';
+    }, 1500); // Redirect after animation completes
+  }
+</script>
 </body>
 </html>
