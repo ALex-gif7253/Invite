@@ -16,6 +16,32 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       margin: 0;
     }
+
+    #heart-wrapper {
+      cursor: pointer;
+      margin-bottom: 2rem;
+      width: 120px;
+      height: 120px;
+    }
+
+    #heart {
+      width: 100%;
+      height: 100%;
+    }
+
+    #left-half, #right-half {
+      transition: transform 1s ease;
+      transform-origin: center;
+    }
+
+    .separated #left-half {
+      transform: translateX(-60px) rotate(-20deg);
+    }
+
+    .separated #right-half {
+      transform: translateX(60px) rotate(20deg);
+    }
+
     .container {
       max-width: 36rem;
       width: 100%;
@@ -23,7 +49,18 @@
       border-radius: 1.25rem;
       box-shadow: 0 10px 15px rgba(219, 39, 119, 0.3);
       padding: 2rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1s ease, transform 1s ease;
+      display: none;
     }
+
+    .container.show {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     h1 {
       font-size: 1.875rem;
       font-weight: 700;
@@ -31,6 +68,7 @@
       text-align: center;
       margin-bottom: 1.5rem;
     }
+
     p {
       text-align: center;
       color: #4b5563;
@@ -38,12 +76,14 @@
       line-height: 1.4;
       font-size: 1rem;
     }
+
     label {
       display: block;
       color: #374151;
       font-weight: 600;
       margin-bottom: 0.25rem;
     }
+
     input[type="text"],
     input[type="number"] {
       width: 100%;
@@ -55,11 +95,13 @@
       box-sizing: border-box;
       transition: box-shadow 0.3s ease;
     }
+
     input[type="text"]:focus,
     input[type="number"]:focus {
       box-shadow: 0 0 0 4px rgba(219, 39, 119, 0.3);
       border-color: #db2777;
     }
+
     button {
       width: 100%;
       background-color: #db2777;
@@ -72,9 +114,11 @@
       font-size: 1.125rem;
       transition: background-color 0.3s ease;
     }
+
     button:hover {
       background-color: #be185d;
     }
+
     #responseMessage {
       text-align: center;
       color: #16a34a;
@@ -85,6 +129,15 @@
   </style>
 </head>
 <body>
+  <!-- Heart Puzzle Animation -->
+  <div id="heart-wrapper">
+    <svg id="heart" viewBox="0 0 120 120">
+      <path id="left-half" d="M60,60 L20,30 A20,20 0 0,1 60,10 Z" fill="#db2777" />
+      <path id="right-half" d="M60,60 L100,30 A20,20 0 0,0 60,10 Z" fill="#db2777" />
+    </svg>
+  </div>
+
+  <!-- RSVP Form -->
   <div class="container">
     <h1>We’re Getting Married! 💍</h1>
     <p>
@@ -110,6 +163,20 @@
   </div>
 
   <script>
+    // Heart animation and form reveal
+    const heartWrapper = document.getElementById('heart-wrapper');
+    const heart = document.getElementById('heart');
+    const formContainer = document.querySelector('.container');
+
+    heartWrapper.addEventListener('click', () => {
+      heart.classList.add('separated');
+      setTimeout(() => {
+        formContainer.classList.add('show');
+        heartWrapper.style.display = 'none';
+      }, 1000); // Wait for heart animation
+    });
+
+    // RSVP form submission
     const form = document.getElementById('rsvpForm');
     const responseMessage = document.getElementById('responseMessage');
 
