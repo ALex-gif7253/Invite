@@ -10,42 +10,64 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
       min-height: 100vh;
-      padding: 1.5rem;
+      padding: 2rem 1rem;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       margin: 0;
     }
 
-    /* Heart Puzzle */
-    #heart-wrapper {
-      width: 200px;
-      height: 200px;
+    #heart-container {
+      width: 300px;
+      height: 300px;
       position: relative;
-      cursor: pointer;
       margin-bottom: 2rem;
+      cursor: pointer;
     }
 
-    .piece {
+    .heart-piece {
       position: absolute;
       width: 50%;
       height: 50%;
-      background-color: #db2777;
-      clip-path: path("M0,0 C0,60 60,100 100,100 C100,100 100,60 60,0 C60,0 0,0 0,0 Z");
+      background-image: url('/heart.jpg');
+      background-size: 300px 300px;
       transition: transform 1s ease;
     }
 
-    /* Puzzle pieces positions (initially scattered) */
-    .top-left    { top: 0; left: 0; transform: translate(-40px, -40px); }
-    .top-right   { top: 0; right: 0; transform: translate(40px, -40px); }
-    .bottom-left { bottom: 0; left: 0; transform: translate(-40px, 40px); }
-    .bottom-right{ bottom: 0; right: 0; transform: translate(40px, 40px); }
+    .top-left {
+      top: 0;
+      left: 0;
+      background-position: left top;
+      transform: translate(-60px, -60px);
+    }
 
-    /* Joined state */
-    .joined .top-left    { transform: translate(0, 0); }
-    .joined .top-right   { transform: translate(0, 0); }
-    .joined .bottom-left { transform: translate(0, 0); }
-    .joined .bottom-right{ transform: translate(0, 0); }
+    .top-right {
+      top: 0;
+      right: 0;
+      background-position: right top;
+      transform: translate(60px, -60px);
+    }
+
+    .bottom-left {
+      bottom: 0;
+      left: 0;
+      background-position: left bottom;
+      transform: translate(-60px, 60px);
+    }
+
+    .bottom-right {
+      bottom: 0;
+      right: 0;
+      background-position: right bottom;
+      transform: translate(60px, 60px);
+    }
+
+    #heart-container.joined .top-left,
+    #heart-container.joined .top-right,
+    #heart-container.joined .bottom-left,
+    #heart-container.joined .bottom-right {
+      transform: translate(0, 0);
+    }
 
     .container {
       max-width: 36rem;
@@ -58,6 +80,7 @@
       transform: translateY(20px);
       transition: opacity 1s ease, transform 1s ease;
       display: none;
+      z-index: 0;
     }
 
     .container.show {
@@ -136,11 +159,11 @@
 <body>
 
   <!-- Heart Puzzle -->
-  <div id="heart-wrapper">
-    <div class="piece top-left"></div>
-    <div class="piece top-right"></div>
-    <div class="piece bottom-left"></div>
-    <div class="piece bottom-right"></div>
+  <div id="heart-container">
+    <div class="heart-piece top-left"></div>
+    <div class="heart-piece top-right"></div>
+    <div class="heart-piece bottom-left"></div>
+    <div class="heart-piece bottom-right"></div>
   </div>
 
   <!-- RSVP Form -->
@@ -151,7 +174,7 @@
       at <strong>The Grand Venue, New York</strong>.
     </p>
 
-    <form id="rsvpForm" class="space-y-4">
+    <form id="rsvpForm">
       <div>
         <label for="name">Your Name</label>
         <input id="name" name="name" type="text" required />
@@ -169,14 +192,14 @@
   </div>
 
   <script>
-    const heartWrapper = document.getElementById('heart-wrapper');
+    const heart = document.getElementById('heart-container');
     const formContainer = document.querySelector('.container');
 
-    heartWrapper.addEventListener('click', () => {
-      heartWrapper.classList.add('joined');
+    heart.addEventListener('click', () => {
+      heart.classList.add('joined');
       setTimeout(() => {
         formContainer.classList.add('show');
-      }, 1000); // Wait for join animation
+      }, 1000);
     });
 
     const form = document.getElementById('rsvpForm');
