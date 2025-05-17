@@ -168,7 +168,8 @@
             redirect: 'follow',
             cache: 'no-cache',
             headers: {
-              'Content-Type': 'text/plain;charset=UTF-8',
+  'Content-Type': 'application/json',
+},
             },
             body: JSON.stringify({ name, guests }),
           }
