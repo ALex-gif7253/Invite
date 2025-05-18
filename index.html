@@ -225,16 +225,15 @@
 
       try {
         const response = await fetch(
-          'https://docs.google.com/spreadsheets/d/1s-tQZGg8nN2w3dFhO1WIET1gXfYa6V4fF79qSgpeyvU/edit?usp=sharing',
+          'https://script.google.com/macros/s/AKfycbzw0TJH9jzhNG1g2txnQeaqmTtei7g19jOdiD4owYD2pPy6ILIz5AOtw_Cc0hLdmrpL/exec',
           {
             method: 'POST',
             mode: 'cors',
             headers: {
-              'Content-Type': 'text/plain;charset=UTF-8',
+              'Content-Type': 'application/json',
             },
             body: JSON.stringify({ name, guests }),
-          }
-        );
+          });
 
         if (!response.ok) {
           throw new Error('Network response was not OK');
