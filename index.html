@@ -233,7 +233,8 @@
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({ name, guests }),
-          }).then((response) => {
+          })
+          .then((response) => {
     if (!response.ok) {
       console.error("Status:", response.status);
       return response.text().then((text) => {
