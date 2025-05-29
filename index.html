@@ -233,19 +233,23 @@
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({ name, guests }),
-          });
-
-        if (!response.ok) {
-          throw new Error('Network response was not OK');
-        } else {
-          responseMessage.style.display = 'block';
-          form.reset();
-        }
-      } catch (error) {
-        console.error('Error submitting form:', error);
-        alert('There was an error submitting your RSVP. Please try again.');
-      }
-    });
+          }).then((response) => {
+    if (!response.ok) {
+      console.error("Status:", response.status);
+      return response.text().then((text) => {
+        throw new Error("Server said: " + text);
+      });
+    }
+    return response.text();
+  })
+  .then((text) => {
+    console.log("Success:", text);
+    alert("RSVP submitted!");
+  })
+  .catch((err) => {
+    console.error("Error submitting form:", err);
+    alert("Error submitting form: " + err.message);
+  });
   </script>
 </body>
 </html>
