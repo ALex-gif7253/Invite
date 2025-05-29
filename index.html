@@ -235,20 +235,10 @@
           body: JSON.stringify({ name, guests }),
         }
       );
-
-      if (!response.ok) {
-        const text = await response.text();
-        throw new Error("Server said: " + text);
-      }
-
-      const text = await response.text();
-      console.log("Success:", text);
       responseMessage.textContent = "Thank you for your RSVP! 🎉";
       responseMessage.style.display = "block";
       form.reset();
     } catch (err) {
-      console.error("Error submitting form:", err);
-      alert("Error submitting form: " + err.message);
     }
   });
 </script>
