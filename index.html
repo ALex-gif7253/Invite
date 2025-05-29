@@ -203,55 +203,55 @@
   </div>
 
   <script>
-    const heart = document.getElementById('heart-container');
-    const formContainer = document.querySelector('.container');
+  const heart = document.getElementById('heart-container');
+  const formContainer = document.querySelector('.container');
 
-    heart.addEventListener('click', () => {
-      heart.classList.add('joined');
-      setTimeout(() => {
-        heart.classList.add('vanish');
-        formContainer.classList.add('show');
-      }, 1200); // wait for join animation before hiding
-    });
-
-    const form = document.getElementById('rsvpForm');
-    const responseMessage = document.getElementById('responseMessage');
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      const name = document.getElementById('name').value;
-      const guests = document.getElementById('guests').value;
-
-      try {
-        const response = await fetch(
-          'https://script.google.com/macros/s/AKfycbzw0TJH9jzhNG1g2txnQeaqmTtei7g19jOdiD4owYD2pPy6ILIz5AOtw_Cc0hLdmrpL/exec',
-          {
-            method: 'POST',
-            mode: "no-cors",
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ name, guests }),
-          })
-          .then((response) => {
-    if (!response.ok) {
-      console.error("Status:", response.status);
-      return response.text().then((text) => {
-        throw new Error("Server said: " + text);
-      });
-    }
-    return response.text();
-  })
-  .then((text) => {
-    console.log("Success:", text);
-    alert("RSVP submitted!");
-  })
-  .catch((err) => {
-    console.error("Error submitting form:", err);
-    alert("Error submitting form: " + err.message);
-  }
+  heart.addEventListener('click', () => {
+    heart.classList.add('joined');
+    setTimeout(() => {
+      heart.classList.add('vanish');
+      formContainer.classList.add('show');
+    }, 1200);
   });
-  </script>
+
+  const form = document.getElementById('rsvpForm');
+  const responseMessage = document.getElementById('responseMessage');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const name = document.getElementById('name').value;
+    const guests = document.getElementById('guests').value;
+
+    try {
+      const response = await fetch(
+        'https://script.google.com/macros/s/AKfycbzw0TJH9jzhNG1g2txnQeaqmTtei7g19jOdiD4owYD2pPy6ILIz5AOtw_Cc0hLdmrpL/exec',
+        {
+          method: 'POST',
+          mode: 'cors', // Prefer cors to get response status
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ name, guests }),
+        }
+      );
+
+      if (!response.ok) {
+        const text = await response.text();
+        throw new Error("Server said: " + text);
+      }
+
+      const text = await response.text();
+      console.log("Success:", text);
+      responseMessage.textContent = "Thank you for your RSVP! 🎉";
+      responseMessage.style.display = "block";
+      form.reset();
+    } catch (err) {
+      console.error("Error submitting form:", err);
+      alert("Error submitting form: " + err.message);
+    }
+  });
+</script>
+
 </body>
 </html>
