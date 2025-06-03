@@ -80,9 +80,27 @@
       pointer-events: none;
     }
 
+    .scroll {
+      width: 90%;
+      max-width: 700px;
+      height: 400px;
+      background: url('/scroll-closed.png') no-repeat center/contain;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+      position: relative;
+      opacity: 1;
+      transition: background 1s ease;
+    }
+
+    .scroll.open {
+      background: url('/scroll-open.png') no-repeat center/contain;
+      height: auto;
+      min-height: 500px;
+    }
+
     .container {
-      max-width: 36rem;
-      width: 100%;
       background: white;
       border-radius: 1.25rem;
       box-shadow: 0 10px 15px rgba(219, 39, 119, 0.3);
@@ -92,6 +110,8 @@
       transition: opacity 1s ease, transform 1s ease;
       display: none;
       z-index: 1;
+      width: 100%;
+      max-width: 500px;
     }
 
     .container.show {
@@ -177,71 +197,78 @@
     <div class="heart-piece bottom-right"></div>
   </div>
 
-  <!-- RSVP Form -->
-  <div class="container">
-    <h1>We’re Getting Married! 💍</h1>
-    <p>
-      Join us for our special day on <strong>December 15, 2025</strong><br />
-      at <strong>The Grand Venue, New York</strong>.
-    </p>
+  <!-- Scroll and RSVP -->
+  <div class="scroll" id="scroll">
+    <div class="container">
+      <h1>We’re Getting Married! 💍</h1>
+      <p>
+        Join us for our special day on <strong>December 15, 2025</strong><br />
+        at <strong>The Grand Venue, New York</strong>.
+      </p>
 
-    <form id="rsvpForm">
-      <div>
-        <label for="name">Your Name</label>
-        <input id="name" name="name" type="text" required />
-      </div>
+      <form id="rsvpForm">
+        <div>
+          <label for="name">Your Name</label>
+          <input id="name" name="name" type="text" required />
+        </div>
 
-      <div>
-        <label for="guests">Number of Guests</label>
-        <input id="guests" name="guests" type="number" min="1" required />
-      </div>
+        <div>
+          <label for="guests">Number of Guests</label>
+          <input id="guests" name="guests" type="number" min="1" required />
+        </div>
 
-      <button type="submit">Confirm RSVP</button>
+        <button type="submit">Confirm RSVP</button>
 
-      <p id="responseMessage">Thank you for your RSVP! 🎉</p>
-    </form>
+        <p id="responseMessage">Thank you for your RSVP! 🎉</p>
+      </form>
+    </div>
   </div>
 
   <script>
-  const heart = document.getElementById('heart-container');
-  const formContainer = document.querySelector('.container');
+    const heart = document.getElementById('heart-container');
+    const formContainer = document.querySelector('.container');
+    const scrollBg = document.getElementById('scroll');
 
-  heart.addEventListener('click', () => {
-    heart.classList.add('joined');
-    setTimeout(() => {
-      heart.classList.add('vanish');
-      formContainer.classList.add('show');
-    }, 1200);
-  });
+    heart.addEventListener('click', () => {
+      heart.classList.add('joined');
+      setTimeout(() => {
+        heart.classList.add('vanish');
+        scrollBg.classList.add('open');
+        setTimeout(() => {
+          formContainer.classList.add('show');
+        }, 800);
+      }, 1200);
+    });
 
-  const form = document.getElementById('rsvpForm');
-  const responseMessage = document.getElementById('responseMessage');
+    const form = document.getElementById('rsvpForm');
+    const responseMessage = document.getElementById('responseMessage');
 
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
 
-    const name = document.getElementById('name').value;
-    const guests = document.getElementById('guests').value;
+      const name = document.getElementById('name').value;
+      const guests = document.getElementById('guests').value;
 
-    try {
-      const response = await fetch(
-        'https://script.google.com/macros/s/AKfycbzw0TJH9jzhNG1g2txnQeaqmTtei7g19jOdiD4owYD2pPy6ILIz5AOtw_Cc0hLdmrpL/exec',
-        {
-          method: 'POST',
-          mode: 'no-cors', // Prefer cors to get response status
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ name, guests }),
-        }
-      );
-      responseMessage.textContent = "Thank you for your RSVP! 🎉";
-      responseMessage.style.display = "block";
-      form.reset();
-    } catch (err) {
-    }
-  });
-</script>
+      try {
+        await fetch(
+          'https://script.google.com/macros/s/AKfycbzw0TJH9jzhNG1g2txnQeaqmTtei7g19jOdiD4owYD2pPy6ILIz5AOtw_Cc0hLdmrpL/exec',
+          {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ name, guests }),
+          }
+        );
+        responseMessage.textContent = "Thank you for your RSVP! 🎉";
+        responseMessage.style.display = "block";
+        form.reset();
+      } catch (err) {
+        // Handle error silently for no-cors
+      }
+    });
+  </script>
 
 </body>
 </html>
