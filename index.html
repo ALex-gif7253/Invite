@@ -3,12 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rey Fluid Inspired Demo</title>
+  <title>Rey Fluid Inspired</title>
   <style>
     :root {
-      --bg: #fff;
-      --text: #111;
-      --accent: #e6e6e6;
+      --bg: #ffffff;
+      --text-primary: #111111;
+      --text-secondary: #444444;
+      --border: #e6e6e6;
+      --accent-bg: #f7f7f7;
     }
 
     * {
@@ -19,17 +21,21 @@
 
     body {
       font-family: 'Helvetica Neue', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.5;
+      background-color: var(--bg);
+      color: var(--text-primary);
+      line-height: 1.6;
     }
 
     header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 2rem 4%;
-      border-bottom: 1px solid var(--accent);
+      padding: 2rem 5%;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
 
     header h1 {
@@ -38,19 +44,16 @@
     }
 
     nav a {
-      margin-left: 2rem;
+      margin-left: 1.5rem;
       text-decoration: none;
-      color: var(--text);
+      color: var(--text-primary);
       font-weight: 500;
     }
 
     .hero {
-      padding: 4rem 4%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+      padding: 6rem 5%;
       text-align: center;
+      background-color: var(--accent-bg);
     }
 
     .hero h2 {
@@ -60,47 +63,86 @@
     }
 
     .hero p {
-      max-width: 600px;
       font-size: 1.2rem;
-      color: #444;
+      color: var(--text-secondary);
+      max-width: 700px;
+      margin: auto;
+    }
+
+    .grid-section {
+      padding: 4rem 5%;
     }
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 2rem;
-      padding: 4rem 4%;
     }
 
-    .grid-item {
-      background-color: #f7f7f7;
-      padding: 1rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+    .card {
+      background: var(--accent-bg);
+      border: 1px solid var(--border);
       border-radius: 10px;
       overflow: hidden;
+      transition: transform 0.3s ease;
     }
 
-    .grid-item img {
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card img {
       width: 100%;
-      height: auto;
-      object-fit: cover;
-      border-radius: 8px;
-      margin-bottom: 1rem;
+      display: block;
     }
 
-    .grid-item h3 {
+    .card-content {
+      padding: 1rem;
+    }
+
+    .card h3 {
       font-size: 1.2rem;
       margin-bottom: 0.5rem;
     }
 
+    .cta {
+      padding: 4rem 5%;
+      background: var(--bg);
+      text-align: center;
+    }
+
+    .cta h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .cta button {
+      background: #111;
+      color: #fff;
+      padding: 0.8rem 2rem;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
     footer {
       text-align: center;
-      padding: 2rem;
+      padding: 2rem 5%;
       font-size: 0.9rem;
-      color: #999;
-      border-top: 1px solid var(--accent);
+      color: var(--text-secondary);
+      border-top: 1px solid var(--border);
+      background: var(--accent-bg);
+    }
+
+    @media (max-width: 600px) {
+      .hero h2 {
+        font-size: 2.2rem;
+      }
+
+      .cta h2 {
+        font-size: 1.5rem;
+      }
     }
   </style>
 </head>
@@ -117,30 +159,43 @@
   </header>
 
   <section class="hero">
-    <h2>Fluid Design for Modern Stores</h2>
-    <p>Inspired by the Rey Fluid demo on Squarespace. A minimalist and adaptable layout perfect for showcasing products, art, and stories.</p>
+    <h2>Design With Fluidity</h2>
+    <p>An elegant layout inspired by the Rey Fluid Squarespace demo. Built from scratch for flexibility, creativity, and ease of use.</p>
   </section>
 
-  <section class="grid">
-    <div class="grid-item">
-      <img src="https://via.placeholder.com/600x400" alt="Sample" />
-      <h3>Featured Collection</h3>
-      <p>Explore our latest drops in style.</p>
+  <section class="grid-section">
+    <div class="grid">
+      <div class="card">
+        <img src="https://via.placeholder.com/600x400" alt="Gallery item">
+        <div class="card-content">
+          <h3>Modern Collection</h3>
+          <p>Shop our latest looks curated with purpose.</p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="https://via.placeholder.com/600x400" alt="Gallery item">
+        <div class="card-content">
+          <h3>Studio Showcase</h3>
+          <p>Explore design inspiration and visual art.</p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="https://via.placeholder.com/600x400" alt="Gallery item">
+        <div class="card-content">
+          <h3>Featured Work</h3>
+          <p>See what we’ve created with our partners.</p>
+        </div>
+      </div>
     </div>
-    <div class="grid-item">
-      <img src="https://via.placeholder.com/600x400" alt="Sample" />
-      <h3>Art & Photography</h3>
-      <p>Curated visuals that speak to you.</p>
-    </div>
-    <div class="grid-item">
-      <img src="https://via.placeholder.com/600x400" alt="Sample" />
-      <h3>Design Studio</h3>
-      <p>Where creativity meets structure.</p>
-    </div>
+  </section>
+
+  <section class="cta">
+    <h2>Ready to Start?</h2>
+    <button>Explore Now</button>
   </section>
 
   <footer>
-    © 2025 Rey Studio. All rights reserved.
+    © 2025 Your Brand. Inspired by Squarespace's Rey theme.
   </footer>
 
 </body>
