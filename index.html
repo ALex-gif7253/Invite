@@ -3030,16 +3030,14 @@
           body: JSON.stringify({ name, guests }),
         });
 
-      if (!response.ok) {
-        throw new Error('Network response was not OK');
-      } else {
+      
         responseMessage.style.display = 'block';
         form.reset();
         setTimeout(() => {
           closePopup();
           responseMessage.style.display = 'none';
         }, 2500);
-      }
+      
     } catch (error) {
       console.error('Error submitting form:', error);
       alert('There was an error submitting your RSVP. Please try again.');
